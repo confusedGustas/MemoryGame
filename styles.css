@@ -1,0 +1,220 @@
+head, body {
+    background: #212121;
+}
+
+canvas {
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+#Game-Container {
+    position: fixed;
+    height: 600px;
+    width: 1000px;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#Main-PopupContainer, #Main-RetryPopupContainer {
+    background-color: #424242;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 6px;
+    display: block;
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.PopupAnimationOut {
+    animation: fadeOut ease 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.PopupAnimationIn {
+    animation: fadeIn ease 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#Main-RetryPopupContainer {
+    display: none;
+}
+
+#Popup, #RetryPopup {
+    user-select: none;
+    text-align: center;
+    margin-top: 48px;
+}
+
+#PopupPlayButton, #PopupRulesButton, #PopupRetryButton {
+    margin: 0 auto;
+    font-family: 'Dongle', sans-serif;
+    font-weight: 700;
+    display: inline-flex;
+    width: 140px;
+    height: 50px;
+    border: 0;
+    border-radius: .375rem;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 30px;
+    letter-spacing: 3px;
+    justify-content: center;
+    align-items: center;
+}
+
+#PopupPlayButton:not(:disabled):hover, #PopupRulesButton:not(:disabled):hover, #PopupRetryButton:not(:disabled):hover, #HelpPopupCloseButton:not(:disabled):hover {
+    transform: scale(1.05);
+}
+
+#PopupPlayButton:not(:disabled):hover:active, #PopupRulesButton:not(:disabled):hover:active,#PopupRetryButton:not(:disabled):hover:active, #HelpPopupCloseButton:not(:disabled):hover:active {
+    transform: scale(1.05) translateY(.125rem);
+}
+
+#PopupPlayButton {
+    background: #00c74d;
+    margin-right: 20px;
+}
+
+#PopupRetryButton {
+    background: #de4c41;
+}
+
+#PopupRulesButton {
+    background: #de4c41;
+    width: 180px;
+    margin-left: 20px;
+}
+
+#Main-HeaderContainer {
+    background-color: #424242;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    user-select: none;
+    padding-top: 12px;
+}
+
+#Main-InfoContainer {
+    background-color: #424242;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 5px;
+    margin-top: 80px;
+    margin-left: 350px;
+    margin-right: 350px;
+    padding: 30px;
+    line-height: 14px;
+    display: none;
+    user-select: none;
+    height: 5px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Dongle', sans-serif;
+    color: #fff;
+    margin: 0;
+    font-size: 70px;
+    display: inline;
+}
+
+h2 {
+    float: left;
+    margin-left: -5px;
+    letter-spacing: 5px;
+    width: 400px;
+}
+
+h3 {
+    letter-spacing: 5px;
+}
+
+h4 {
+    float: right;
+    max-width: 19px;
+}
+
+h5 {
+    float: right;
+    margin-right: 5px;
+    letter-spacing: 5px;
+}
+
+#HelpPopup {
+    position: absolute;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 700px;
+    background-color: #424242;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 5px;
+    padding-top: 20px;
+}
+
+#HelpPopupCloseButton {
+    font-family: 'Dongle', sans-serif;
+    color: #464646;
+    right: 5px;
+    top: -8px;
+    position: absolute;
+    font-size: 45px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #fff;
+}
+
+#HelpParagraph {
+    font-family: 'Dongle', sans-serif;
+    color: #fff;
+    font-size: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h6 {
+    font-family: 'Dongle', sans-serif;
+    color: #fff;
+    font-size: 55px;
+    width: 250px;
+    height: 50px;
+    margin: 0;
+    margin-left: 20px;
+}
+
+#HelpParagraph em {
+    color: #00c74d;
+}
+
+#HelpImage {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 460px;
+    height: 200px;
+}

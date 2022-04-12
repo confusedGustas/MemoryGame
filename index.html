@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href="styles.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Dongle&display=swap" rel="stylesheet">
+    <script src="p5.min.js"></script>
+    <title>5s.xyz</title>
+</head>
+<body>
+    <div id="Main-Container">
+        <div id="Main-PopupContainer">
+            <div id="Popup">
+                <button id="PopupPlayButton" onclick="Game()">PLAY</button>
+                <button id="PopupRulesButton">HOW TO PLAY</button>
+            </div>
+        </div>
+        <div id="Main-RetryPopupContainer">
+            <div id="RetryPopup">
+                <button id="PopupRetryButton">RETRY</button>
+            </div>
+        </div>
+        <div id="HelpPopup">
+            <button id="HelpPopupCloseButton">X</button>
+            <h6>HOW TO PLAY</h6>
+            <p id="HelpParagraph">When you press <em>PLAY</em> a random word will be generated in the top left corner. 
+                Random squares will spawn. They each have one letter of the random word. 
+                You will have exactly 3 seconds to memorise the word and the letters on the sqaures before they disappear.
+                After the letters disappear, you will have 4 seconds to click on the sqaures in an exact order so the letters behind it add up to the same random word.</p>
+        </div>
+        <div id="Main-HeaderContainer">
+            <h1>5s.xyz</h1>
+        </div>
+        <div id="Main-InfoContainer">
+            <h2 id="RandomWord">WORD:</h2>
+            <h3 id="Highscore">HIGHSCORE: 0</h3>
+            <h4 id="TimeNumbers"></h4>
+            <h5 id="TimeText">TIME:</h5>
+        </div>
+        <div id="Game-Container">
+            <!-- Game canvas -->
+        </div>
+    </div>
+    <script defer src="popup.js"></script>
+    <script defer src="object.js"></script>
+    <script defer src="code.js"></script>
+    <script defer src="words.js"></script>
+</body>
+</html>
