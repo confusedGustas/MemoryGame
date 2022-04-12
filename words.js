@@ -5278,7 +5278,6 @@ let list = [
 "knack",
 "would",
 "pyxes",
-"penis",
 "segue",
 "toyed",
 "cornu",
