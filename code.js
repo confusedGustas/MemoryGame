@@ -20,8 +20,6 @@ const main_game = ( sketch ) => {
     let highscore = 0;
     let highscore_ = 0;
 
-    let pause = false;
-
     // Initial canvas setup
     sketch.setup = () => {
         sketch.createCanvas(WIDTH, HEIGHT);
