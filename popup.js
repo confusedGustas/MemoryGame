@@ -22,10 +22,12 @@ document.getElementById("PopupRulesButton").addEventListener("click", () => {
 
 // Event Listiner for the "RETRY" button
 document.getElementById("PopupRetryButton").addEventListener("click", () => {
+    document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationIn");
     document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationOut");
-    
-    setTimeout(() => {
-        document.getElementById("Main-RetryPopupContainer").style.display = "none";
-        document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
-    }, 1000);
 });
+
+// Onload event for "Main-PopupContainer" and "Main-RetryPopupContainer" modules
+window.onload = function() {
+    document.getElementById("Main-PopupContainer").style.opacity = "1";
+    document.getElementById("Main-RetryPopupContainer").style.visibility = "hidden";
+}

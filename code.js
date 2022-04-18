@@ -20,10 +20,12 @@ const main_game = ( sketch ) => {
     let highscore = 0;
     let highscore_ = 0;
 
+    let pause = false;
+
     // Initial canvas setup
     sketch.setup = () => {
         sketch.createCanvas(WIDTH, HEIGHT);
-        sketch.frameRate(60);
+        sketch.frameRate(120);
 
         sketch.GenerateWord();
         sketch.CreateObject();
@@ -80,7 +82,7 @@ const main_game = ( sketch ) => {
             a.show(sketch);
             a.move(sketch);
             a.check_collision(sketch, WIDTH, HEIGHT);
-        });
+        }); 
         
         // Change speed
         if (time == 60){
@@ -113,7 +115,8 @@ const main_game = ( sketch ) => {
             document.getElementById("TimeNumbers").innerHTML = game_time;
             if (game_time == 0){
                 game_time_stop = true;
-                document.getElementById("Main-RetryPopupContainer").style.display = "block";
+                document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
+                document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationIn");
                 sketch.noLoop();
             }
         }
@@ -129,7 +132,8 @@ const main_game = ( sketch ) => {
             }
             else {
                 game_time_stop = true;
-                document.getElementById("Main-RetryPopupContainer").style.display = "block";
+                document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
+                document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationIn");
                 sketch.noLoop();
             }
         }
@@ -186,9 +190,14 @@ const main_game = ( sketch ) => {
     }
 };
 
+let once = 0;
+
 // Create Game Object
 function Game() {
-    main = new p5(main_game, "Game-Container");
+    if (once != 1){
+        main = new p5(main_game, "Game-Container");
+        once = 1;
+    }
 
     document.getElementById("Main-InfoContainer").style.display = "block";
 }
