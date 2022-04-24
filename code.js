@@ -177,6 +177,8 @@ const main_game = ( sketch ) => {
         sqaures_hidden = false;
         game_time = 3;
         counter = 0;
+        sketch.deltaTime = 0;
+        totalTime = 0;
 
         document.getElementById("TimeNumbers").innerHTML = game_time;
     }
