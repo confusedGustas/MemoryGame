@@ -8,28 +8,88 @@ const main_game = ( sketch ) => {
 
     let order;
     let squares;
-    let time = 0;
 
     let sqaures_hidden = false;
     let game_time_stop = false;
     let game_time = 3;
-    document.getElementById("TimeNumbers").innerHTML = game_time;
 
     let counter = 0;
 
     let highscore = 0;
     let highscore_ = 0;
 
+    let totalTime = 0;
+
     // Initial canvas setup
     sketch.setup = () => {
         sketch.createCanvas(WIDTH, HEIGHT);
-        sketch.frameRate(120);
 
         sketch.GenerateWord();
         sketch.CreateObject();
-        sketch.HideSquares();
     };
 
+    // Infinate loop to draw/move/check_collision of the squares
+    sketch.draw = () => {
+        sketch.background(16, 16, 16);
+
+        totalTime += sketch.deltaTime;
+        
+        sketch.ShowSquares();
+        sketch.Timer();
+
+        sketch.RetryButton();
+    };
+
+    // Calling all the needed function for sqaures to work
+    sketch.ShowSquares = () => {
+        squares.forEach(a => {
+            a.show(sketch);
+            a.move(sketch);
+            a.check_collision(sketch, WIDTH, HEIGHT);
+        }); 
+    }
+
+    // Change game time 
+    sketch.Timer = () => {
+        if (totalTime >= 1000) {
+            game_time--;
+            document.getElementById("TimeNumbers").innerHTML = game_time;
+
+            // Change speed
+            squares.forEach(t => {
+                t.change_speed(sketch);
+            });
+
+            totalTime = 0;
+        }
+
+        if (game_time == 0 && sqaures_hidden != true) {
+            sketch.HideSquares();
+            sqaures_hidden = true;
+
+            game_time = 4;
+            document.getElementById("TimeNumbers").innerHTML = game_time;;
+        }
+        else if (game_time == 0 && sqaures_hidden == true) {
+            game_time_stop = true;
+            document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
+            document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationIn");
+            document.getElementById("PopupRetryButton").disabled = false;
+            sketch.noLoop();
+        }
+    }
+
+    // Event listiner for the Retry button
+    sketch.RetryButton = () => {
+        document.getElementById("PopupRetryButton").addEventListener("click", () => {
+            sketch.Retry();
+            
+            sketch.deltaTime = 0;
+            totalTime = 0;
+        });
+    }
+
+    // Pick a random word from the words.js file
     sketch.GenerateWord = () => {
         random_word = list[sketch.int(sketch.random(0, 10000))];
         document.getElementById("RandomWord").innerHTML = "WORD: " + random_word.toUpperCase();
@@ -65,59 +125,9 @@ const main_game = ( sketch ) => {
 
     // Hide the leters after x seconds
     sketch.HideSquares = () => {
-        setTimeout(() => {
-            squares.forEach(f => {
-                f.hide_squares(sketch);
-            });
-        }, 3000);
-    }
-
-    // Infinate loop to draw/move/check_collision of the squares
-    sketch.draw = () => {
-        sketch.background(16, 16, 16);
-    
-        squares.forEach(a => {
-            a.show(sketch);
-            a.move(sketch);
-            a.check_collision(sketch, WIDTH, HEIGHT);
-        }); 
-        
-        // Change speed
-        if (time == 60){
-            squares.forEach(t => {
-                t.change_speed(sketch);
-            });
-    
-            time = 0;
-        } else time++;
-
-        sketch.Timer();
-        document.getElementById("PopupRetryButton").addEventListener("click", () => {
-            sketch.Retry();
+        squares.forEach(f => {
+            f.hide_squares(sketch);
         });
-    };
-
-    // Change game time 
-    sketch.Timer = () => {
-        if (sketch.frameCount % 75 == 0 && game_time > 0 && sqaures_hidden != true){
-            game_time--;
-            document.getElementById("TimeNumbers").innerHTML = game_time;
-            if (game_time == 0){
-                sqaures_hidden = true;
-                game_time = 5;
-                document.getElementById("TimeNumbers").innerHTML = game_time;
-            }
-        }
-        if (sqaures_hidden == true && game_time_stop != true && sketch.frameCount % 75 == 0 && game_time > 0){
-            game_time--;
-            document.getElementById("TimeNumbers").innerHTML = game_time;
-            if (game_time == 0){
-                game_time_stop = true;
-                document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
-                document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationIn");
-                sketch.noLoop();
-            }
-        }
     }
 
     // Check if the clicked order is correct
@@ -132,15 +142,11 @@ const main_game = ( sketch ) => {
                 game_time_stop = true;
                 document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationOut");
                 document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationIn");
+                document.getElementById("PopupRetryButton").disabled = false;
                 sketch.noLoop();
             }
         }
         if (counter == 5){
-            highscore++;
-            document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore;
-            sketch.GenerateWord();
-            sketch.CreateObject();
-            sketch.HideSquares();
             sketch.Reset();
         }
     }
@@ -162,11 +168,16 @@ const main_game = ( sketch ) => {
 
     // Reset after first correct
     sketch.Reset = () => {
+        highscore++;
+        document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore;
+
+        sketch.GenerateWord();
+        sketch.CreateObject();
+
         sqaures_hidden = false;
         game_time = 3;
         counter = 0;
 
-        sketch.frameCount = 0;
         document.getElementById("TimeNumbers").innerHTML = game_time;
     }
 
@@ -174,31 +185,21 @@ const main_game = ( sketch ) => {
     sketch.Retry = () => {
         sketch.GenerateWord();
         sketch.CreateObject();
-        sketch.HideSquares();
-        sketch.Reset();
-
-        if (highscore > highscore_)highscore_ = highscore;
-        highscore = 0;
+        sketch.CheckHighscore();
+        
+        sqaures_hidden = false;
         game_time_stop = false;
+        game_time = 3;
+        counter = 0;
 
         document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore_;
         document.getElementById("TimeNumbers").innerHTML = game_time;
 
-        // Fixes timer bug
-        sketch.frameCount = 0;
-
         sketch.loop();
     }
-};
 
-let once = 0;
-
-// Create Game Object
-function Game() {
-    if (once != 1){
-        main = new p5(main_game, "Game-Container");
-        once = 1;
+    sketch.CheckHighscore = () => {
+        if (highscore > highscore_)highscore_ = highscore;
+        else highscore = 0;
     }
-
-    document.getElementById("Main-InfoContainer").style.display = "block";
-}
+};

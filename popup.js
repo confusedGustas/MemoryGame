@@ -2,6 +2,10 @@
 document.getElementById("PopupPlayButton").addEventListener("click", () => {
     document.getElementById("Main-PopupContainer").classList.remove("PopupAnimationIn");
     document.getElementById("Main-PopupContainer").classList.add("PopupAnimationOut");
+
+    main = new p5(main_game, "Game-Container");
+    document.getElementById("PopupPlayButton").disabled = true;
+    document.getElementById("Main-InfoContainer").style.display = "block";
 });
 
 // Event Listiner for the "HOW TO PLAY" button
@@ -24,6 +28,8 @@ document.getElementById("PopupRulesButton").addEventListener("click", () => {
 document.getElementById("PopupRetryButton").addEventListener("click", () => {
     document.getElementById("Main-RetryPopupContainer").classList.remove("PopupAnimationIn");
     document.getElementById("Main-RetryPopupContainer").classList.add("PopupAnimationOut");
+
+    document.getElementById("PopupRetryButton").disabled = true;
 });
 
 // Onload event for "Main-PopupContainer" and "Main-RetryPopupContainer" modules
