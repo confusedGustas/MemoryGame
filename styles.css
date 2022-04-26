@@ -216,3 +216,16 @@ h6 {
     width: 460px;
     height: 200px;
 }
+
+#policy {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 40px;
+    cursor: pointer;
+    border: none;
+    font-family: 'Dongle', sans-serif;
+    color: #fff;
+    background: none;
+    margin-right: 12px;
+}
