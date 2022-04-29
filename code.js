@@ -169,8 +169,8 @@ const main_game = ( sketch ) => {
     // Reset after first correct
     sketch.Reset = () => {
         highscore++;
-        document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore;
 
+        sketch.CheckHighscore();
         sketch.GenerateWord();
         sketch.CreateObject();
 
@@ -193,15 +193,17 @@ const main_game = ( sketch ) => {
         game_time_stop = false;
         game_time = 3;
         counter = 0;
+        highscore = 0;
 
-        document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore_;
         document.getElementById("TimeNumbers").innerHTML = game_time;
 
         sketch.loop();
     }
 
     sketch.CheckHighscore = () => {
-        if (highscore > highscore_)highscore_ = highscore;
-        else highscore = 0;
+        if (highscore > highscore_){
+            highscore_ = highscore;
+            document.getElementById("Highscore").innerHTML = "HIGHSCORE: " + highscore_;
+        }
     }
 };
